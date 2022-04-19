@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Product from './pages/Product'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import Logout from './pages/Logout'
 import './App.css';
 import {UserProvider} from './UserContext'
 
@@ -23,16 +24,15 @@ function App() {
 
   useEffect(()=> {
 
-    fetch('http://localhost/4000/users/profile', {
-      method : 'POST',
+    fetch('http://localhost:4000/users/profile', {
       headers : {
-        Authorization : `Bearer ${localStorage.getItem('token')}`
+        Authorization : `Bearer ${localStorage.getItem("token")}`
       }
     })
     .then(res => res.json())
     .then(data => {
 
-      if(typeof data !=="undefined"){
+      if(typeof data.accessToken !=="undefined"){
         setUser({
           id:data._id,
           isAdmin:data.isAdmin
@@ -53,7 +53,7 @@ function App() {
 
 
   return (
-    <UserProvider value={{user, setUser,unsetUser}}>
+    <UserProvider value={{user, setUser, unsetUser}}>
       <Router>
      
       <AppNavBar/>
@@ -63,6 +63,7 @@ function App() {
           <Route exact path = "/products" element ={<Product/>}/>
           <Route exact path = "/register" element ={<Register/>}/>
           <Route exact path = "/login" element ={<Login/>}/>
+          <Route exact path = "/logout" element={<Logout/>}/>
       </Routes>
      
 

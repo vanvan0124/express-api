@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {Container} from 'react-bootstrap';
-import AppNavBar from './components/AppNavBar'
-import Home from './pages/Home'
-import Product from './pages/Product'
-import Register from './pages/Register'
-import Login from './pages/Login'
-import Logout from './pages/Logout'
+import AppNavBar from './components/AppNavBar';
+import Home from './pages/Home';
+import Product from './pages/Product';
+import ProductView from './components/ProductView';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Logout from './pages/Logout';
 import './App.css';
 import {UserProvider} from './UserContext'
 
@@ -61,6 +62,7 @@ function App() {
       <Routes>
           <Route exact path = "/" element ={<Home/>}/>
           <Route exact path = "/products" element ={<Product/>}/>
+          <Route exact path = "/products/:productId" element ={<ProductView/>}/>
           <Route exact path = "/register" element ={<Register/>}/>
           <Route exact path = "/login" element ={<Login/>}/>
           <Route exact path = "/logout" element={<Logout/>}/>

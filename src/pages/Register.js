@@ -14,100 +14,77 @@ const Register = () => {
 	const history = useNavigate();
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] =useState('');
-	const [mobileNo, setMobileNo] = useState('');
+	
 	const [email, setEmail] = useState('');
+	const [phone, setPhone] = useState('');
 	const [password, setPassword] = useState('');
 	const [isActive, setIsActive] = useState(false);
 
 
 
-function registerUser(e){	
+async function registerUser(e){	
 
 	e.preventDefault();
 
-	fetch('http://localhost:4000/users/checkEmail',{
-		method : 'POST',
+	const checkEmailExist = await fetch('http://localhost:4000/users/checkEmail',{
+		method :'POST',
 		headers : {
 			'Content-Type' : 'application/json'
 		},
 		body: JSON.stringify({
-			email:email
-		 })
+			email: email
+		})
+	})
+	.then(res => res.json())
+	.then(data=> data)
+
+	if(!checkEmailExist){
+		fetch('http://localhost:4000/users/register', {
+			method: 'POST',
+			headers : {
+				'Content-Type' : 'application/json'
+			},
+			body: JSON.stringify({
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				phone:phone,
+				password: password
+			})
+
 
 		})
 		.then(res => res.json())
 		.then(data => {
-			console.log(data);
+			Swal.fire({
+				title: "SUCCESS",
+				icon: "success",
+				text:"enjoy"
 
-			if(data === true){
-				Swal.fire({
-					title: "Email Already Exist",
-					icon: "error",
-					text : "Please provide another email"
-				})
-			} else {
-				fetch('http://localhost:4000/users/register', {
-					method: 'POST',
-					headers: {
-						'Content-Type' :'application/json'
+			})
+		})
+		history("/login")
+	}
+	else
+	{
+		Swal.fire({
+			title: "Email Is Already Registered",
+            icon: "error",
+            text: "Please select another email."
 
-					},
-					body : JSON.stringify({
-						firstName: firstName,
-						lastName: lastName,
-						mobileNo : mobileNo,
-						email: email,
-						password: password
-					})
-				})
-				.then(res=> res.json())
-				.then(data => {
-					console.log(data)
-					if(data === true ){
-						setFirstName('');
-						setLastName('');
-						setMobileNo('');
-						setEmail('');
-						setPassword('')
-
-						Swal.fire({
-							title : 'Success',
-							icon: 'success',
-							text: 'Welcome to Zuitt'
-						})
-						history("/login")
-
-					} else {
-						Swal.fire({
-							title: 'Something went wrong',
-							icon: 'error',
-							text: 'Please try again'
-						})
-					}
-				})
-			}
 
 		})
-
-
-
-
-
-	setFirstName('');
-	setLastName('');
-	setMobileNo('');
-	setEmail('');
-	setPassword('')
+	}
 	
-	alert('Thank you for registering!');
 }
+
 
 
 
 
 useEffect(() => {
 
-	if(firstName !=='' && lastName !==''  && mobileNo !=='' && email !== '' && password !=='' ){
+	if(firstName !=='' && lastName !==''  && phone !=='' && email !== '' && password !=='' ){
 
 		setIsActive(true);
 
@@ -116,10 +93,15 @@ useEffect(() => {
 	}
 
 
-}, [firstName, lastName, mobileNo, email, password])
+}, [firstName, lastName, phone, email, password])
 
 
 	return(	
+		(user.id !== null)
+		?
+		<Navigate to = "/products"/>
+
+		:
 
 			<Container>
 			<Col className="justify-content-center">
@@ -127,32 +109,76 @@ useEffect(() => {
 			<Card className="text-center center-block my-5 shadow-lg"  >
 			<Card.Title className=" bg-dark p-3"><h3 className ="text-white">REGISTER</h3></Card.Title>
 			<Card.Body>
-			<Form>
+			<Form onSubmit={e => registerUser(e)}>
 			<Form.Group controlId="firstName">
 			    <Form.Label>First Name</Form.Label>
-			    <Form.Control type="text" placeholder="Enter your first name" />
+			    <Form.Control 
+			    	type="text"
+					placeholder = "Input your firstname here"
+					value = {firstName}
+					onChange ={e => setFirstName(e.target.value)}
+					required/>
 			  </Form.Group>
 
 			  <Form.Group controlId="lastName">
 			    <Form.Label>Last Name</Form.Label>
-			    <Form.Control type="text" placeholder="Enter email" />
+			    <Form.Control
+			    	type="text"
+					placeholder = "Input your last name here"
+					value = {lastName}
+					onChange ={e => setLastName(e.target.value)}
+					required
+			    />
 			  </Form.Group>
 
-			  <Form.Group controlId="formBasicEmail">
+			  <Form.Group controlId="Email">
 			    <Form.Label>Email address</Form.Label>
-			    <Form.Control type="email" placeholder="Enter email" />
+			    <Form.Control 
+			    	type = "email"
+					placeholder = "Enter your email here"
+					value={email}
+					onChange={e => setEmail(e.target.value)}
+					required
+			    />
 			  </Form.Group>
 
-			  <Form.Group controlId="formBasicPassword">
+			  <Form.Group controlId="userphone">
+			    <Form.Label>Phone</Form.Label>
+			    <Form.Control 
+			   		type = "text"
+					placeholder = "Enter your phone here"
+					value={phone}
+					onChange={e => setPhone(e.target.value)}
+					required
+
+			    />
+			  </Form.Group>
+
+
+			  <Form.Group controlId="userpassword">
 			    <Form.Label>Password</Form.Label>
-			    <Form.Control type="password" placeholder="Password" />
+			    <Form.Control 
+			    	type="password"
+					placeholder = "Input your password here"
+					autoComplete="on"
+					value = {password}
+					onChange ={e => setPassword(e.target.value)}
+					required
+			    />
 			  </Form.Group>
 
 
 
-			  <Button variant="primary" type="submit">
-			    Submit
-			  </Button>
+			  { isActive ?
+
+					<Button variant ="primary" type ="submit" id="submitBtn" className ="my-3">
+					Submit
+					</Button>
+				:
+					<Button variant ="danger" type ="submit" id="submitBtn" className ="my-3" disabled>
+					Submit
+					</Button>
+				}
 			</Form>
 			</Card.Body>
 			

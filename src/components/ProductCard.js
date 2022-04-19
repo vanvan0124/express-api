@@ -18,7 +18,7 @@ const ProductCard = ({productProp}) =>{
 				    <Card.Text>{description}</Card.Text>
 				    <Card.Subtitle>Price:</Card.Subtitle>
 				    <Card.Text>Php {price}</Card.Text>
-				    <Button variant="primary">See Details</Button>
+				    <Button variant="primary" as={Link} to={`/products/${_id}`} >See Details</Button>
 				  </Card.Body>
 			</Card>
 		

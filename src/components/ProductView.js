@@ -16,6 +16,32 @@ export default function ProductView() {
 
 	const {productId} = useParams();
 
+
+	function addToCart(){
+        fetch("http://localhost:4000/products/addToCart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({
+                productId: productId,
+               
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            Swal.fire({
+                title: "Item Added To Cart!",
+                icon: "success",
+                text: "The item is added to your cart."
+            });
+        });
+    }
+
+
+
+
 	const order = (productId) => {
 		fetch('http://localhost:4000/users/order', {
 			method : "POST",
@@ -92,9 +118,15 @@ export default function ProductView() {
 						
 
 							{ user.id !== null
-								?
-								<Button variant ="primary" onClick={()=> order(productId)}>Buy</Button>
 
+								?
+
+								<Col>
+								<Button variant ="primary" onClick={()=> order(productId)}>Buy Now</Button>	
+								<Button variant ="info" onClick={()=> addToCart(productId)} className="ml-2">Add to Cart</Button>	
+								</Col>
+
+				
 								:
 
 								<Link className="btn btn-danger" to="/login">Log In to Buy</Link>

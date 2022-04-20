@@ -18,9 +18,13 @@ export default function AppNavBar(){
 
 
 			      
-			       { (user.id !== null) ?
-
+			       { (user.id !== null)
+			       	?
+			       	<>
+			        <Nav.Link as={Link} to="/myorders">My Orders</Nav.Link>
+			        <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
 			        <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
+			         </>
 			        :
 			        <>
 			        <Nav.Link as={Link} to="/register">Register</Nav.Link>

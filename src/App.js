@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Product from './pages/Product';
 import ProductView from './components/ProductView';
 import Register from './pages/Register';
+import Cart from './pages/Cart'
+import UserOrder from './pages/UserOrder';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import './App.css';
@@ -64,6 +66,8 @@ function App() {
           <Route exact path = "/products" element ={<Product/>}/>
           <Route exact path = "/products/:productId" element ={<ProductView/>}/>
           <Route exact path = "/register" element ={<Register/>}/>
+          <Route exact path = "/myorders" element ={<UserOrder/>}/>
+          <Route exact path = "/cart" element ={<Cart/>}/>
           <Route exact path = "/login" element ={<Login/>}/>
           <Route exact path = "/logout" element={<Logout/>}/>
       </Routes>

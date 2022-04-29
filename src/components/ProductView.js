@@ -61,25 +61,14 @@ export default function ProductView() {
 		.then(data => {
 			console.log(data)
 
-			if(data=== true){
-
 				Swal.fire({
-					title: "Enrolled Successfully",
+					title: "Success",
 					icon : "success",
-					text: "You are now enrolled"
+					text: "Order completed"
 				})
 
 				history("/products");
 
-			} else {
-
-				Swal.fire({
-					title: "Error",
-					icon : "error",
-					text: "Not allowed"
-
-				})
-			}
 
 		})
 

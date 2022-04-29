@@ -22,64 +22,79 @@ const Register = () => {
 
 
 
-async function registerUser(e){	
+ function registerUser(e){	
 
 	e.preventDefault();
 
-	const checkEmailExist = await fetch('http://localhost:4000/users/checkEmail',{
-		method :'POST',
+		fetch('http://localhost:4000/users/checkEmail',{
+		method : 'POST',
 		headers : {
 			'Content-Type' : 'application/json'
 		},
 		body: JSON.stringify({
-			email: email
-		})
-	})
-	.then(res => res.json())
-	.then(data=> data)
-
-	if(!checkEmailExist){
-		fetch('http://localhost:4000/users/register', {
-			method: 'POST',
-			headers : {
-				'Content-Type' : 'application/json'
-			},
-			body: JSON.stringify({
-				firstName: firstName,
-				lastName: lastName,
-				email: email,
-				phone:phone,
-				password: password
-			})
-
+			email:email
+		 })
 
 		})
 		.then(res => res.json())
 		.then(data => {
-			Swal.fire({
-				title: "SUCCESS",
-				icon: "success",
-				text:"enjoy"
+			console.log(data);
 
-			})
+			if(data === true){
+					setEmail('');
+					setPassword('')
+
+
+				Swal.fire({
+					title: "Email Already Exist",
+					icon: "error",
+					text : "Please provide another email"
+				})
+			} else {
+				fetch('http://localhost:4000/users/register', {
+					method: 'POST',
+					headers: {
+						'Content-Type' :'application/json'
+
+					},
+					body : JSON.stringify({
+						firstName: firstName,
+						lastName: lastName,
+						email: email,
+						phone:phone,
+						password: password
+					})
+				})
+				.then(res=> res.json())
+				.then(data => {
+					console.log(data)
+				
+						setFirstName('');
+						setLastName('');
+						setPhone('');
+						setEmail('');
+						setPassword('')
+
+						Swal.fire({
+							title : 'Success',
+							icon: 'success',
+							text: 'Welcome to Zuitt'
+						})
+						history("/login")
+
+					
+				})
+			}
+
 		})
-		history("/login")
-	}
-	else
-	{
-		Swal.fire({
-			title: "Email Is Already Registered",
-            icon: "error",
-            text: "Please select another email."
 
 
-		})
-	}
+
+
+
+	
 	
 }
-
-
-
 
 
 useEffect(() => {
@@ -131,6 +146,18 @@ useEffect(() => {
 			    />
 			  </Form.Group>
 
+			   <Form.Group controlId="userphone">
+			    <Form.Label>Phone</Form.Label>
+			    <Form.Control 
+			   		type = "text"
+					placeholder = "Enter your phone here"
+					value={phone}
+					onChange={e => setPhone(e.target.value)}
+					required
+
+			    />
+			  </Form.Group>
+
 			  <Form.Group controlId="Email">
 			    <Form.Label>Email address</Form.Label>
 			    <Form.Control 
@@ -142,17 +169,7 @@ useEffect(() => {
 			    />
 			  </Form.Group>
 
-			  <Form.Group controlId="userphone">
-			    <Form.Label>Phone</Form.Label>
-			    <Form.Control 
-			   		type = "text"
-					placeholder = "Enter your phone here"
-					value={phone}
-					onChange={e => setPhone(e.target.value)}
-					required
-
-			    />
-			  </Form.Group>
+			 
 
 
 			  <Form.Group controlId="userpassword">

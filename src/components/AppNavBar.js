@@ -10,30 +10,63 @@ export default function AppNavBar(){
 		
 	<Navbar collapseOnSelect expand="lg"  variant="dark" className ="color-nav px-5 pt-4">
 			  <Navbar.Brand as={Link} to="/">V-STORE</Navbar.Brand>
-			  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+			  <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
 			  <Navbar.Collapse id="responsive-navbar-nav">
-			    <Nav className="ml-auto">
-			      <Nav.Link as={Link} to="/">Home</Nav.Link>
-			      <Nav.Link as={Link} to="/products">Products</Nav.Link>
+
+			  
+			    
+			      {
+			      	(user.id !== null && user.isAdmin)
+			      	?
+			      	<Nav className = "me-auto">
+			      	<Nav.Link as={Link} to="/admin">Dashboard</Nav.Link>
+			      	</Nav>
+
+			      	:
+			      	<Nav className = "me-auto">
+
+			      		<Nav.Link as={Link} to="/">Home</Nav.Link>
+				      	<Nav.Link as={Link} to="/products">Products</Nav.Link> 
+
+				      	{
+
+				      	(user.id !== null && !user.isAdmin)
+				      	?
+				      	<>
+				      	
+				      	<Nav.Link as={Link} to="/myorders">My Orders</Nav.Link>
+				        <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
+				      	</>
+				      	:
+				      	<></>
+
+				      	}
+			      
+			      	</Nav>
+			      	
+			      }
 
 
 			      
-			       { (user.id !== null)
+			       {
+
+			        (user.id !== null)
 			       	?
-			       	<>
-			        <Nav.Link as={Link} to="/myorders">My Orders</Nav.Link>
-			        <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
+
+			       	<Nav className="ml-auto">      
 			        <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
-			         </>
+			         </Nav>
+			         
 			        :
-			        <>
+			        <Nav className="ml-auto"> 
 			        <Nav.Link as={Link} to="/register">Register</Nav.Link>
 			        <Nav.Link as={Link} to="/login">Login</Nav.Link>
-			        </>
+			         </Nav>
+
 			    	}
 			      
 			    
-			    </Nav>
+			   
 			   
 			  </Navbar.Collapse>
 </Navbar>

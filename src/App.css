@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: 'NTR', sans-serif;
-  font-size: 1.19rem;
+  font-size: 1.19rem;  
 
   
 
@@ -20,7 +20,7 @@
 
 
 .jumbotron {
-  /*background-image: url(https://images.pexels.com/photos/163143/sackcloth-sackcloth-textured-laptop-ipad-163143.jpeg?auto=compress&cs=tinysrgb&w=1600);*/
+  background-image: url(https://images.pexels.com/photos/163143/sackcloth-sackcloth-textured-laptop-ipad-163143.jpeg?auto=compress&cs=tinysrgb&w=1600);
 
   background-size: cover;
   height: 60vh;

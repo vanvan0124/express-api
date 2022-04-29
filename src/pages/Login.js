@@ -6,7 +6,7 @@ import UserContext from '../UserContext'
 
 
 
-const Login = (props) =>{
+const Login = (props) => {
 
 	const {user, setUser} = useContext(UserContext);
 
@@ -99,9 +99,14 @@ const Login = (props) =>{
 
 
 	return(
-		(user.id !== null) ?
+		(user.id !== null) 
+		?
 
-		<Navigate to = "/products"/>
+			(user.isAdmin)
+            ?
+            <Navigate to="/admin"/>
+            :
+            <Navigate to="/products" />
 
 		:	
 

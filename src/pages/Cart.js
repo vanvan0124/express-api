@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
-import { Container, Table } from "react-bootstrap";
-import {Navigate, Link } from "react-router-dom";
+import { Container, Table, Button} from "react-bootstrap";
+import {Navigate, Link, useParams, useNavigate } from "react-router-dom";
 import UserContext from "../UserContext";
+
+import Swal from 'sweetalert2'
 
 
 
@@ -10,6 +12,49 @@ export default function Cart() {
 
 	 const {user} = useContext(UserContext);
     const [carts, setCarts] = useState();
+
+    const history = useNavigate();
+
+
+    const {productId} = useParams();
+
+
+
+    const order = (productId) => {
+        fetch('http://localhost:4000/users/order', {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+                Authorization : `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({
+                productId : productId
+
+            })
+
+
+
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+                Swal.fire({
+                    title: "Success",
+                    icon : "success",
+                    text: "Order completed"
+                })
+
+                history("/products");
+
+
+        })
+
+
+    }
+
+
+
 
 
     useEffect(()=>{
@@ -32,6 +77,7 @@ export default function Cart() {
                         <td>{cart._id}</td>
                         <td>{cart.productId}</td>
                         <td>{orderDate}</td>
+                        <Button variant ="primary" onClick={()=> order(productId)}>Checkout</Button> 
 
                     </tr>
 
@@ -41,6 +87,8 @@ export default function Cart() {
     		}))
 
     	})
+
+
 
 
 

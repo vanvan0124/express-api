@@ -10,6 +10,8 @@ import Cart from './pages/Cart'
 import UserOrder from './pages/UserOrder';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
+import Admin from './pages/AdminDashboard'
+import Error from './pages/Error'
 import './App.css';
 import {UserProvider} from './UserContext'
 
@@ -67,9 +69,12 @@ function App() {
           <Route exact path = "/products/:productId" element ={<ProductView/>}/>
           <Route exact path = "/register" element ={<Register/>}/>
           <Route exact path = "/myorders" element ={<UserOrder/>}/>
+          
           <Route exact path = "/cart" element ={<Cart/>}/>
           <Route exact path = "/login" element ={<Login/>}/>
           <Route exact path = "/logout" element={<Logout/>}/>
+          <Route exact path = "/admin" element ={<Admin/>}/>
+          <Route exact path= "*" element ={<Error/>}/>
       </Routes>
      
 

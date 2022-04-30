@@ -26,7 +26,7 @@ const Register = () => {
 
 	e.preventDefault();
 
-		fetch('http://localhost:4000/users/checkEmail',{
+		fetch('https://pure-hamlet-97702.herokuapp.com/users/checkEmail',{
 		method : 'POST',
 		headers : {
 			'Content-Type' : 'application/json'
@@ -51,7 +51,7 @@ const Register = () => {
 					text : "Please provide another email"
 				})
 			} else {
-				fetch('http://localhost:4000/users/register', {
+				fetch('https://pure-hamlet-97702.herokuapp.com/users/register', {
 					method: 'POST',
 					headers: {
 						'Content-Type' :'application/json'

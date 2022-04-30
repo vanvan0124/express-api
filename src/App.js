@@ -30,7 +30,7 @@ function App() {
 
   useEffect(()=> {
 
-    fetch('http://localhost:4000/users/profile', {
+    fetch('https://pure-hamlet-97702.herokuapp.com/users/profile', {
       headers : {
         Authorization : `Bearer ${localStorage.getItem("token")}`
       }

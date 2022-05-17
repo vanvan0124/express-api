@@ -18,7 +18,7 @@ export default function ProductView() {
 
 
 	function addToCart(){
-        fetch("http://localhost:4000/products/addToCart", {
+        fetch("https://pure-hamlet-97702.herokuapp.com/products/addToCart", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function ProductView() {
 
 
 	const order = (productId) => {
-		fetch('http://localhost:4000/users/order', {
+		fetch('https://pure-hamlet-97702.herokuapp.com/users/order', {
 			method : "POST",
 			headers : {
 				"Content-Type" : "application/json",
@@ -79,7 +79,7 @@ export default function ProductView() {
 	useEffect(()=>{
 		console.log(productId)
 
-		fetch(`http://localhost:4000/products/${productId}`)
+		fetch(`https://pure-hamlet-97702.herokuapp.com/products/${productId}`)
 		.then(res => res.json())
 		.then(data => {
 			console.log(data)

@@ -17,7 +17,7 @@ const Login = (props) => {
 	function logInUser(e){	
 		e.preventDefault()
 
-		fetch('http://localhost:4000/users/login', {
+		fetch('https://pure-hamlet-97702.herokuapp.com/users/login', {
 			method : "POST",
 			headers : {
 				'Content-Type' : 'application/json'
@@ -62,7 +62,7 @@ const Login = (props) => {
 		setPassword('')
 
 		const retrieveUserDetails = (token) => {
-			fetch('http://localhost:4000/users/profile',{
+			fetch('https://pure-hamlet-97702.herokuapp.com/users/profile',{
 
 				headers : {
 					Authorization : `Bearer ${token}`

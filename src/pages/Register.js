@@ -78,7 +78,7 @@ const Register = () => {
 						Swal.fire({
 							title : 'Success',
 							icon: 'success',
-							text: 'Welcome to Zuitt'
+							text: 'You can now log in '
 						})
 						history("/login")
 

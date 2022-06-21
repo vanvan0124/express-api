@@ -21,7 +21,7 @@ export default function Cart() {
 
 
     const order = (productId) => {
-        fetch('http://localhost:4000/users/order', {
+        fetch('https://pure-hamlet-97702.herokuapp.com/users/order', {
             method : "POST",
             headers : {
                 "Content-Type" : "application/json",
@@ -58,7 +58,7 @@ export default function Cart() {
 
 
     useEffect(()=>{
-    	fetch('http://localhost:4000/users/viewMyCart',{
+    	fetch('https://pure-hamlet-97702.herokuapp.com/users/viewMyCart',{
     		headers: {
     			Authorization : `Bearer ${localStorage.getItem("token")}`
 

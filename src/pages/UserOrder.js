@@ -10,7 +10,7 @@ const MyOrders = () => {
     const [orders, setOrders] = useState();
     
     useEffect(()=>{
-        fetch('http://localhost:4000/users/retrieveOrders',{
+        fetch('https://pure-hamlet-97702.herokuapp.com/retrieveOrders',{
             headers: {
                 Authorization :`Bearer ${localStorage.getItem("token")}`
             }
